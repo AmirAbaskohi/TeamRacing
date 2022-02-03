@@ -8,7 +8,7 @@ pygame.display.set_caption("Team Racing")
 run = True
 clock = pygame.time.Clock()
 
-map_images = [(GRASS, (0, 0)), (TRACK, (0, 0))]
+map_images = [(GRASS, (0, 0)), (TRACK, (0, 0)), (FINISH, (130, 250)), (TRACK_BORDER, (0, 0))]
 player_car = Car(4, 4, RED_CAR, (180, 200))
 
 while run:
@@ -40,5 +40,8 @@ while run:
 
     if not is_moved:
         player_car.reduce_speed()
+
+    if player_car.collide(TRACK_BORDER_MASK) != None:
+        player_car.bounce()
 
 pygame.quit()
