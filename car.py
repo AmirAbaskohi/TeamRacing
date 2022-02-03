@@ -11,6 +11,7 @@ class Car:
         self.angle = 0
         self.x, self.y = start_position
         self.acceleration = 0.1
+        self.start_position = start_position
 
     def rotate(self, left=False, right=False):
         if left:
@@ -50,4 +51,9 @@ class Car:
     def bounce(self):
         self.vel = -self.vel
         self.move()
+
+    def reset(self):
+        self.x, self.y = self.start_position
+        self.angle = 0
+        self.vel = 0
 
