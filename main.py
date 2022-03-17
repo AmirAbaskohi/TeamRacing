@@ -39,6 +39,8 @@ while run:
         is_moved = True
         player_car.move_backward()
 
+    computer_car.move()
+
     if not is_moved:
         player_car.reduce_speed()
 
