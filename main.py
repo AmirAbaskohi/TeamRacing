@@ -10,7 +10,7 @@ clock = pygame.time.Clock()
 
 map_images = [(GRASS, (0, 0)), (TRACK, (0, 0)), (FINISH, (130, 250)), (TRACK_BORDER, (0, 0))]
 player_car = Car(4, 4, RED_CAR, (180, 200))
-computer_car = ComputerCar(4, 4, GREEN_CAR, (150, 200))
+computer_car = ComputerCar(4, 4, GREEN_CAR, (150, 200), PATH)
 
 while run:
     clock.tick((FPS))
