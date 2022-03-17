@@ -7,6 +7,7 @@ from utils import blit_text_center
 
 pygame.font.init()
 MAIN_FONT = pygame.font.SysFont("comicsans", 44)
+STAT_FONT = pygame.font.SysFont("comicsans", 30)
 
 pygame.display.set_caption("Team Racing")
 
@@ -21,10 +22,21 @@ game_info = GameInfo()
 while run:
     clock.tick((FPS))
 
-    WIN.blit(GRASS, (0, 0))
-    WIN.blit(TRACK, (0, 0))
-
     draw_images(WIN, map_images, player_car, computer_car)
+
+    level_text = STAT_FONT.render(
+        f"Level {game_info.level}", 1, (255, 255, 255))
+    WIN.blit(level_text, (10, HEIGHT - level_text.get_height() - 70))
+
+    time_text = STAT_FONT.render(
+        f"Time: {game_info.get_level_time()}s", 1, (255, 255, 255))
+    WIN.blit(time_text, (8, HEIGHT - time_text.get_height() - 40))
+
+    vel_text = STAT_FONT.render(
+        f"Vel: {round(player_car.vel, 1)}px/s", 1, (255, 255, 255))
+    WIN.blit(vel_text, (10, HEIGHT - vel_text.get_height() - 10))
+
+    pygame.display.update()
 
     while not game_info.started:
         blit_text_center(WIN, MAIN_FONT, f"Press ant key to start level {game_info.level}!")

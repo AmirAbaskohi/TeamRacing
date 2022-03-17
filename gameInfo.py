@@ -27,4 +27,4 @@ class GameInfo:
     def get_level_time(self):
         if not self.started:
             return 0
-        return self.level_start_time - time.time()
+        return round(time.time() - self.level_start_time)

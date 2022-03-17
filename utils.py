@@ -9,7 +9,6 @@ def draw_images(win, images, player_car, computer_car):
         win.blit(img, pos)
     player_car.draw(win)
     computer_car.draw(win)
-    pygame.display.update()
 
 def blit_rotate_center(win, image, top_left, angle):
     rotated_image = pygame.transform.rotate(image, angle)

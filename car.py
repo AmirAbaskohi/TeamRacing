@@ -77,7 +77,6 @@ class ComputerCar:
 
     def draw(self, win):
         blit_rotate_center(win, self.img, (self.x, self.y), self.angle)
-        self.draw_points(win)
 
     def calculate_angle(self):
         target_x, target_y = self.path[self.current_point]
@@ -131,8 +130,4 @@ class ComputerCar:
         self.x, self.y = self.start_position
         self.angle = 0
         self.vel = 0
-
-    def draw_points(self, win):
-        for point in self.path:
-            pygame.draw.circle(win, (255, 0, 0), point, 5)
 
