@@ -16,7 +16,7 @@ clock = pygame.time.Clock()
 
 map_images = [(GRASS, (0, 0)), (TRACK, (0, 0)), (FINISH, (130, 250)), (TRACK_BORDER, (0, 0))]
 player_car = Car(4, 4, RED_CAR, (180, 200))
-computer_car = ComputerCar(4, 4, GREEN_CAR, (150, 200), PATH)
+computer_car = ComputerCar(2, 4, GREEN_CAR, (150, 200), PATH)
 game_info = GameInfo()
 
 while run:
@@ -79,6 +79,9 @@ while run:
     player_finish_poi_collide = player_car.collide(FINISH_MASK, 130, 250)
     computer_finish_poi_collide = computer_car.collide(FINISH_MASK, 130, 250)
     if computer_finish_poi_collide != None:
+        blit_text_center(WIN, MAIN_FONT, f"You lost!")
+        pygame.time.wait(5000)
+        game_info.reset()
         player_car.reset()
         computer_car.reset()
     if player_finish_poi_collide != None:
@@ -86,6 +89,14 @@ while run:
             player_car.bounce()
         else:
             player_car.reset()
-            computer_car.reset()
+            game_info.next_level()
+            computer_car.next_level(game_info.level)
+
+    if game_info.game_finished():
+        blit_text_center(WIN, MAIN_FONT, f"You won!")
+        pygame.time.wait(5000)
+        game_info.reset()
+        player_car.reset()
+        computer_car.reset()
 
 pygame.quit()

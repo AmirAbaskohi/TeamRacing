@@ -68,6 +68,7 @@ class ComputerCar:
         self.start_position = start_position
         self.path = path
         self.current_point = 0
+        self.max_vel = max_vel
 
     def rotate(self, left=False, right=False):
         if left:
@@ -125,6 +126,11 @@ class ComputerCar:
         offset = (int(self.x - x), int(self.y - y))
         poi = mask.overlap(car_mask, offset)
         return poi
+
+    def next_level(self, level):
+        self.reset()
+        self.vel = self.max_vel + (level - 1) * 0.2
+        self.current_point = 0
 
     def reset(self):
         self.x, self.y = self.start_position
