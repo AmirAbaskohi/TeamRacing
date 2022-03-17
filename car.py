@@ -57,3 +57,56 @@ class Car:
         self.angle = 0
         self.vel = 0
 
+class ComputerCar:
+    def __init__(self, max_vel, rotation_vel, img, start_position, path=[]):
+        self.img = img
+        self.vel = max_vel
+        self.rotation_vel = rotation_vel
+        self.angle = 0
+        self.x, self.y = start_position
+        self.acceleration = 0.1
+        self.start_position = start_position
+        self.path = path
+        self.current_point = 0
+
+    def rotate(self, left=False, right=False):
+        if left:
+            self.angle += self.rotation_vel
+        elif right:
+            self.angle -= self.rotation_vel
+
+    def draw(self, win):
+        blit_rotate_center(win, self.img, (self.x, self.y), self.angle)
+        self.draw_points(win)
+
+    def move_forward(self):
+        self.vel = min(self.vel + self.acceleration, self.max_vel)
+        self.move()
+
+    def move_backward(self):
+        self.vel = max(self.vel - self.acceleration, -self.max_vel/2)
+        self.move()
+
+    def move(self):
+        radians = math.radians(self.angle)
+        vertical = math.cos(radians) * self.vel
+        horizontal = math.sin(radians) * self.vel
+
+        self.y -= vertical
+        self.x -= horizontal
+
+    def collide(self, mask, x=0, y=0):
+        car_mask = pygame.mask.from_surface(self.img)
+        offset = (int(self.x - x), int(self.y - y))
+        poi = mask.overlap(car_mask, offset)
+        return poi
+
+    def reset(self):
+        self.x, self.y = self.start_position
+        self.angle = 0
+        self.vel = 0
+
+    def draw_points(self, win):
+        for point in self.path:
+            pygame.draw.circle(win, (255, 0, 0), point, 5)
+

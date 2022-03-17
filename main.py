@@ -1,7 +1,7 @@
 import pygame
 import time
 from const import *
-from car import Car
+from car import Car, ComputerCar
 
 pygame.display.set_caption("Team Racing")
 
@@ -10,6 +10,7 @@ clock = pygame.time.Clock()
 
 map_images = [(GRASS, (0, 0)), (TRACK, (0, 0)), (FINISH, (130, 250)), (TRACK_BORDER, (0, 0))]
 player_car = Car(4, 4, RED_CAR, (180, 200))
+computer_car = ComputerCar(4, 4, GREEN_CAR, (150, 200))
 
 while run:
     clock.tick((FPS))
@@ -17,7 +18,7 @@ while run:
     WIN.blit(GRASS, (0, 0))
     WIN.blit(TRACK, (0, 0))
 
-    draw_images(WIN, map_images, player_car)
+    draw_images(WIN, map_images, player_car, computer_car)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

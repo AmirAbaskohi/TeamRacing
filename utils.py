@@ -4,10 +4,11 @@ def scale_image(img, factor):
     size = round(img.get_width() * factor), round(img.get_height() * factor)
     return pygame.transform.scale(img, size)
 
-def draw_images(win, images, player_car):
+def draw_images(win, images, player_car, computer_car):
     for img, pos in images:
         win.blit(img, pos)
     player_car.draw(win)
+    computer_car.draw(win)
     pygame.display.update()
 
 def blit_rotate_center(win, image, top_left, angle):
