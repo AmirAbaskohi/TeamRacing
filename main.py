@@ -2,6 +2,11 @@ import pygame
 import time
 from const import *
 from car import Car, ComputerCar
+from gameInfo import GameInfo
+from utils import blit_text_center
+
+pygame.font.init()
+MAIN_FONT = pygame.font.SysFont("comicsans", 44)
 
 pygame.display.set_caption("Team Racing")
 
@@ -11,6 +16,7 @@ clock = pygame.time.Clock()
 map_images = [(GRASS, (0, 0)), (TRACK, (0, 0)), (FINISH, (130, 250)), (TRACK_BORDER, (0, 0))]
 player_car = Car(4, 4, RED_CAR, (180, 200))
 computer_car = ComputerCar(4, 4, GREEN_CAR, (150, 200), PATH)
+game_info = GameInfo()
 
 while run:
     clock.tick((FPS))
@@ -19,6 +25,17 @@ while run:
     WIN.blit(TRACK, (0, 0))
 
     draw_images(WIN, map_images, player_car, computer_car)
+
+    while not game_info.started:
+        blit_text_center(WIN, MAIN_FONT, f"Press ant key to start level {game_info.level}!")
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                break
+
+            if event.type == pygame.KEYDOWN:
+                game_info.start_level()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
